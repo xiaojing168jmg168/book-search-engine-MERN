@@ -16,7 +16,7 @@ const resolvers = {
         }
     },
 Mutation:{
-    addUser: async (parent, args) =>{
+    createUser: async (parent, args) =>{
         try {
             const user = await User.create(args);
             const token = signToken(user);
@@ -48,9 +48,9 @@ Mutation:{
         }
         throw new error('Could not add book!');
     },
-    removeBook: async (parent, {bookId}, context) => {
+    deleteBook: async (parent, {bookId}, context) => {
         if(context.user){
-            const updatedUser = await User.findOneAndUpdate(
+            const updateUser = await User.findOneAndUpdate(
                 {_id: context.user._id},
                 {$pull: {savedBooks: {bookId}}},
                 {new: true}
