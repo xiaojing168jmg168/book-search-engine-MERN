@@ -1,5 +1,4 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { sign } = require('jsonwebtoken');
 const { User } = require('../models');
 const { signToken } = require('../utils/auth');
 
@@ -16,7 +15,7 @@ const resolvers = {
         }
     },
 Mutation:{
-    createUser: async (parent, args) =>{
+    addUser: async (parent, args) =>{
         try {
             const user = await User.create(args);
             const token = signToken(user);
@@ -37,25 +36,25 @@ Mutation:{
         const token = signToken(user);
         return { token, user };
     },
-    saveBook: async (parent, args, context) =>{
+    saveBook: async (parent, {input}, context) =>{
         if(context.user){
-            const updateUser = await User.findOneAndUpdate(
+            const updatedUser = await User.findOneAndUpdate(
                 {_id: context.user._id},
-                {$addToSet: {savedBooks: args}},
+                {$addToSet: {savedBooks: input}},
                 {new: true, runValidators: true}
-            );
-            return updateUser;
+            ).populate("savedBooks");
+            return updatedUser;
         }
         throw new error('Could not add book!');
     },
-    deleteBook: async (parent, {bookId}, context) => {
+    removeBook: async (parent, {bookId}, context) => {
         if(context.user){
-            const updateUser = await User.findOneAndUpdate(
+            const updatedUser = await User.findOneAndUpdate(
                 {_id: context.user._id},
-                {$pull: {savedBooks: {bookId}}},
+                {$pull: {savedBooks: {bookId: bookId}}},
                 {new: true}
-            );
-            return updateUser;
+            ).populate("savedBooks");
+            return updatedUser;
         }
         throw new AuthenticationError('Could not delete book!')
 
