@@ -17,7 +17,7 @@ This application allows users to search for new books from Google's Book API. Us
 
 
 ## Application Deployment
-[https://xiaojing-deng.herokuapp.com/](https://xiaojing-deng.herokuapp.com/)
+[https://fierce-headland-67337.herokuapp.com/](https://fierce-headland-67337.herokuapp.com/)
 
 ## Application Screenshot
 
