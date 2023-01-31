@@ -22,10 +22,8 @@ This application allows users to search for new books from Google's Book API. Us
 ## Application Screenshot
 
 ![screenshot](assets/images/book-search.png)
-
-
-https://user-images.githubusercontent.com/110792983/214473363-37a2fb83-8e54-4788-95d8-7b7387032a07.mp4
-
+![screenshot](assets/images/book-search-2.png)
+![screenshot](assets/images/book-search-3.png)
 
 ## Technology:
 
